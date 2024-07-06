@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import LiveSearch from './LiveSearch';
 
-const DataTable = (props) => {
+const DataTableCate = (props) => {
     const { name, data, columns, currentPage, numOfPage, onPageChange, onChangeItemsPerPage, onKeySearch, onSelectedRows } = props;
     const [selectedRows, setSelectedRows] = useState([])
 
@@ -17,12 +17,48 @@ const DataTable = (props) => {
     const renderData = () => {
         return (
             data.map((item, index) => (
-                <tr key={index}>
-                    <td><input type="checkbox" checked={selectedRows.includes(String(item.id)) ? true : false} className="form-check-input" value={item.id} onChange={onClickCheckbox} /></td>
+                <>
+                    <tr >
+                        <td key={index}><input type="checkbox" checked={selectedRows.includes(String(item.id)) ? true : false} className="form-check-input" value={item.id} onChange={onClickCheckbox} /></td>
+                        {
+                            columns.map((col, ind) =>
+                                <td key={ind} style={{ fontSize: "16px", fontWeight: "bold" }}>
+                                    {col.element(item)}
+                                </td>)
+                        }
+                    </tr>
                     {
-                        columns.map((col, ind) => <td key={ind}>{col.element(item)}</td>)
+                        item.children.length > 0 &&
+                        item.children?.map((item2, index) => (
+                            <>
+                                <tr >
+                                    <td key={index}><input type="checkbox" checked={selectedRows.includes(String(item2.id)) ? true : false} className="form-check-input" value={item2.id} onChange={onClickCheckbox} /></td>
+                                    {
+                                        columns.map((col, ind2) =>
+                                            <td key={ind2} style={{ fontSize: "16px" }}>
+                                                {(col.name == "Tên danh mục") ? "|--- " + col.element(item2) : col.element(item2)}
+                                            </td>)
+                                    }
+                                </tr>
+                                {
+                                    item2.children.length > 0 &&
+                                    item2.children?.map((item3, index) => (
+                                        <tr key={index}>
+                                            <td key={index}><input type="checkbox" checked={selectedRows.includes(String(item3.id)) ? true : false} className="form-check-input" value={item3.id} onChange={onClickCheckbox} /></td>
+                                            {
+                                                columns.map((col, ind3) =>
+                                                    <td key={ind3} style={{ fontSize: "16px", fontStyle: "italic" }}>
+                                                        {(col.name == "Tên danh mục") ? "|--- |--- " + col.element(item3) : col.element(item3)}
+                                                    </td>)
+                                            }
+                                        </tr>
+                                    ))
+                                }
+                            </>
+                        ))
                     }
-                </tr>
+                </>
+
             ))
         )
     }
@@ -43,10 +79,10 @@ const DataTable = (props) => {
     }
 
     const onSelectAll = (event) => {
-        if(event.target.checked){
+        if (event.target.checked) {
             const temp = data.map(element => String(element.id))
             setSelectedRows(temp)
-        }else{
+        } else {
             setSelectedRows([])
         }
     }
@@ -92,28 +128,28 @@ const DataTable = (props) => {
                 {name}
             </div>
             <div className="card-body">
-                <div className="row mb-1">
+                <div className="row mb-3">
                     <div className="col-sm-12 col-md-6">
-                        <label className='d-inline-flex'>Hiện
+                        <label className='d-inline-flex'>Hiển thị
                             <select defaultValue="5" name="example_length" className="form-select form-select-sm ms-1 me-1" onChange={onChangeOption}>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="5">5</option>
                                 <option value="10">10</option>
-                            </select> dòng
+                            </select> bài viết
                         </label>
                     </div>
                     <div className="col-sm-12 col-md-6 ">
-                        <label className='d-inline-flex float-end' >Tìm:
+                        <label className='d-inline-flex float-end' >Tìm kiếm:
                             <LiveSearch onKeySearch={onKeySearch} />
                         </label>
                     </div>
                 </div>
-                <table className="table table-striped table-bordered m-1" cellSpacing="0" width="100%">
+                <table className="table table-striped table-bordered" cellSpacing="0" width="100%">
                     <thead>
                         <tr>
-                            <td><input checked={selectedRows.length === data.length && data.length > 0 ? true : false} type="checkbox" className="form-check-input" onChange={onSelectAll}/></td>
+                            <td><input checked={selectedRows.length === data.length && data.length > 0 ? true : false} type="checkbox" className="form-check-input" onChange={onSelectAll} /></td>
                             {renderHeaders()}
                         </tr>
                     </thead>
@@ -129,8 +165,8 @@ const DataTable = (props) => {
                 </table>
                 {numOfPage > 1 && (
                     <div className="row">
-                        <div className="col-sm-12 col-md-7 mb-0">
-                            <ul className="pagination justify-content-end m-0">
+                        <div className="col-sm-12 col-md-7">
+                            <ul className="pagination justify-content-end">
                                 {renderPagination()}
                             </ul>
                         </div>
@@ -142,4 +178,4 @@ const DataTable = (props) => {
     )
 }
 
-export default DataTable
+export default DataTableCate

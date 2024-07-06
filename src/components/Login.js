@@ -29,16 +29,16 @@ const Login = () => {
         let isValid = true;
         const errors = {};
         if (loginData.email === '' || loginData.email === undefined) {
-            errors.email = "Please enter email"
+            errors.email = "Bạn vui lòng nhập Email"
         } else {
             let valid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(loginData.email)
             if (!valid) {
-                errors.email = "Email is not valid"
+                errors.email = "Email không đúng định dạng!"
             }
         }
 
         if (loginData.password === '' || loginData.password === undefined) {
-            errors.password = "Please enter password"
+            errors.password = "Vui lòng nhập mật khẩu!"
         }
 
         if (Object.keys(errors).length > 0) {
@@ -72,7 +72,7 @@ const Login = () => {
                         toast.error(err.response.data.message, { position: "top-center" })
                     }
                 } else {
-                    toast.error("Server is down. Please try again!", { position: "top-center" })
+                    toast.error("Máy chủ không hoạt động. Vui lòng liên hệ quản trị viên!", { position: "top-center" })
                 }
             })
         }
@@ -92,24 +92,24 @@ const Login = () => {
                                     <div className="card-body">
                                         <form>
                                             <div className="form-floating mb-3">
-                                                <input className="form-control" type="email" name='email' onChange={onChange} placeholder="name@example.com" />
+                                                <input className="form-control" type="email" name='email' onChange={onChange} placeholder="Ví dụ: khachieu@qk7.bqp" />
                                                 <label>Email address</label>
                                                 {formErrors.email && <p style={{ color: 'red' }}>{formErrors.email}</p>}
                                             </div>
                                             <div className="form-floating mb-3">
-                                                <input className="form-control" name='password' type="password" onChange={onChange} placeholder="Password" />
+                                                <input className="form-control" name='password' type="password" onChange={onChange} placeholder="Nhập mật khẩu" />
                                                 <label>Password</label>
                                                 {formErrors.password && <p style={{ color: 'red' }}>{formErrors.password}</p>}
                                             </div>
                                             <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a className="small" href="password.html">Forgot Password?</a>
-                                                <button className="btn btn-primary" type='button' onClick={onSubmit}>Login</button>
+                                                <button className="btn btn-primary" type='button' onClick={onSubmit}>Đăng nhập</button>
                                             </div>
                                         </form>
                                     </div>
                                     <div className="card-footer text-center py-3">
                                         <div className="small">
-                                            <Link to='/register'>Need an account? Sign up!</Link>
+                                            <Link to='/register'>Bạn chưa có tài khoản? Đăng ký!</Link>
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@ const Login = () => {
                 <footer className="py-4 bg-light mt-auto">
                     <div className="container-fluid px-4">
                         <div className="d-flex align-items-center justify-content-between small">
-                            <div className="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div className="text-muted">Copyright &copy; Ban Công nghệ thông tin Quân khu 7 - 2024</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;

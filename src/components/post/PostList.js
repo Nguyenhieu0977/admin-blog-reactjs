@@ -7,7 +7,7 @@ import { Button, Modal } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import FormatDatetime from '../../helpers/common'
 
-const UserList = () => {
+const PostList = () => {
     const dispatch = useDispatch()
     const [users, setUsers] = useState([])
     const [numOfPage, setNumOfPage] = useState(1)
@@ -26,16 +26,16 @@ const UserList = () => {
             element: row => row.id
         },
         {
-            name: "Tên",
-            element: row => row.first_name
+            name: "Tiêu đề",
+            element: row => row.title
         },
         {
-            name: "Họ và tên lót",
-            element: row => row.last_name
+            name: "Mô tả",
+            element: row => row.summary
         },
         {
-            name: "Đại chỉ Email",
-            element: row => row.email
+            name: "Ảnh đại diện",
+            element: row => <img width="100px" src={process.env.REACT_APP_API_URL + '/' + row.thumbnail} />
         },
         {
             name: "Thời gian tạo",
@@ -49,9 +49,9 @@ const UserList = () => {
             name: "Thao tác",
             element: row => (
                 <>
-                <Link to={`/users/edit/${row.id}`} className="btn btn-sm btn-warning me-1"><i className="fa fa-pencil"></i> Edit</Link>
+                <Link to={`/post/edit/${row.id}`} className="btn btn-sm btn-warning me-1"><i className="fa fa-pencil"></i></Link>
                     {/* <button type="button" className="btn btn-sm btn-warning me-1"><i className="fa fa-pencil"></i> Edit</button> */}
-                    <button type="button" className="btn btn-sm btn-danger me-1" onClick={() => handleDelete(row.id)}><i className="fa fa-trash"></i> Delete</button>
+                    <button type="button" className="btn btn-sm btn-danger me-1" onClick={() => handleDelete(row.id)}><i className="fa fa-trash"></i></button>
                 </>
             )
         }
@@ -100,7 +100,7 @@ const UserList = () => {
     useEffect(() => {
         dispatch(actions.controlLoading(true))
         let query = `?items_per_page=${itemsPerPage}&page=${currentPage}&search=${searchString}`
-        requestApi(`/users${query}`, 'GET', []).then(response => {
+        requestApi(`/posts${query}`, 'GET', []).then(response => {
             console.log("response=> ", response)
             setUsers(response.data.data)
             setNumOfPage(response.data.lastPage)
@@ -114,19 +114,19 @@ const UserList = () => {
     return (
         <div id="layoutSidenav_content">
             <main>
-                <div className="container-fluid p-2">
-                    {/* <h3 className="mt-4">Tài khoản người dùng</h3> */}
-                    <ol className="breadcrumb mb-3 sticky-top bg-white">
-                        <li className="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                        <li className="breadcrumb-item active">Danh sách tài khoản</li>
+                <div className="container-fluid px-4">
+                    {/* <h3 className="mt-4">Danh mục bài viết</h3> */}
+                    <ol className="breadcrumb mb-4">
+                        <li className="breadcrumb-item"><Link to={"/"}>Trang chủ</Link></li>
+                        <li className="breadcrumb-item active">Danh mục bài viết</li>
                     </ol>
                     <div className='mb-3'>
-                        <Link className='btn btn-sm btn-success me-2' to="/users/add"><i className="fa fa-plus"></i>Thêm mới tài khoản</Link>
+                        <Link className='btn btn-sm btn-success me-2' to="/posts/add"><i className="fa fa-plus"></i>Thêm mới</Link>
                         {/* <button type='button' className='btn btn-sm btn-success me-2'><i className="fa fa-plus"></i> Add new</button> */}
-                        {selectedRows.length > 0 && <button type='button' className='btn btn-sm btn-danger' onClick={handleMultiDelete}><i className="fa fa-trash"></i>Xóa các tài khoản đã chọn</button>}
+                        {selectedRows.length > 0 && <button type='button' className='btn btn-sm btn-danger' onClick={handleMultiDelete}><i className="fa fa-trash"></i> Xóa các bài viết đã chọn</button>}
                     </div>
                     <DataTable
-                        name="Danh sách tài khoản"
+                        name="Danh dục bài viết"
                         data={users}
                         columns={columns}
                         numOfPage={numOfPage}
@@ -146,18 +146,18 @@ const UserList = () => {
             </main>
             <Modal show={showModal} onHide={() => setShowModal(false)} size='sm'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Xác nhận</Modal.Title>
+                    <Modal.Title>Xóa bài viết</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Bạn thật sự muốn xóa không?
+                    Xác nhận xóa bài viết đã chọn?
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={() => setShowModal(false)}>Không</Button>
-                    <Button className='btn-danger' onClick={requestDeleteApi}>Chấp nhận</Button>
+                    <Button onClick={() => setShowModal(false)}>Đóng</Button>
+                    <Button className='btn-danger' onClick={requestDeleteApi}>Chấp nhận xóa</Button>
                 </Modal.Footer>
             </Modal>
         </div>
     )
 }
 
-export default UserList
+export default PostList

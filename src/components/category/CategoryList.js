@@ -5,9 +5,10 @@ import { useDispatch } from 'react-redux'
 import * as actions from '../../redux/actions'
 import { Button, Modal } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import FormatDatetime from '../../helpers/common'
+import moment from 'moment'
+import DataTableCate from '../common/DataTableCate'
 
-const UserList = () => {
+const CategoryList = () => {
     const dispatch = useDispatch()
     const [users, setUsers] = useState([])
     const [numOfPage, setNumOfPage] = useState(1)
@@ -26,30 +27,26 @@ const UserList = () => {
             element: row => row.id
         },
         {
-            name: "Tên",
-            element: row => row.first_name
+            name: "Tên danh mục",
+            element: row => row.name
         },
         {
-            name: "Họ và tên lót",
-            element: row => row.last_name
+            name: "Mô tà",
+            element: row => row.description
         },
         {
-            name: "Đại chỉ Email",
-            element: row => row.email
+            name: "Ngày tạo",
+            element: row => moment(row.created_at).format('DD/MM/YYYY hh:mm A')
         },
         {
-            name: "Thời gian tạo",
-            element: row => FormatDatetime(row.created_at)
-        },
-        {
-            name: "Thời gian cập nhật",
-            element: row => FormatDatetime(row.updated_at)
+            name: "Cập nhật",
+            element: row => moment(row.updated_at).format('DD/MM/YYYY hh:mm A')
         },
         {
             name: "Thao tác",
             element: row => (
                 <>
-                <Link to={`/users/edit/${row.id}`} className="btn btn-sm btn-warning me-1"><i className="fa fa-pencil"></i> Edit</Link>
+                <Link to={`/categories/edit/${row.id}`} className="btn btn-sm btn-warning me-1"><i className="fa fa-pencil"></i> Edit</Link>
                     {/* <button type="button" className="btn btn-sm btn-warning me-1"><i className="fa fa-pencil"></i> Edit</button> */}
                     <button type="button" className="btn btn-sm btn-danger me-1" onClick={() => handleDelete(row.id)}><i className="fa fa-trash"></i> Delete</button>
                 </>
@@ -73,7 +70,7 @@ const UserList = () => {
     const requestDeleteApi = () => {
         if (deleteType === 'single') {
             dispatch(actions.controlLoading(true))
-            requestApi(`/users/${deleteItem}`, 'DELETE', []).then(response => {
+            requestApi(`/categories/${deleteItem}`, 'DELETE', []).then(response => {
                 setShowModal(false)
                 setRefresh(Date.now())
                 dispatch(actions.controlLoading(false))
@@ -84,7 +81,7 @@ const UserList = () => {
             })
         } else {
             dispatch(actions.controlLoading(true))
-            requestApi(`/users/multiple?ids=${selectedRows.toString()}`, 'DELETE', []).then(response => {
+            requestApi(`/categories/multiple?ids=${selectedRows.toString()}`, 'DELETE', []).then(response => {
                 setShowModal(false)
                 setRefresh(Date.now())
                 setSelectedRows([])
@@ -100,9 +97,9 @@ const UserList = () => {
     useEffect(() => {
         dispatch(actions.controlLoading(true))
         let query = `?items_per_page=${itemsPerPage}&page=${currentPage}&search=${searchString}`
-        requestApi(`/users${query}`, 'GET', []).then(response => {
+        requestApi(`/categories${query}`, 'GET', []).then(response => {
             console.log("response=> ", response)
-            setUsers(response.data.data)
+            setUsers(response.data)
             setNumOfPage(response.data.lastPage)
             dispatch(actions.controlLoading(false))
         }).catch(err => {
@@ -114,19 +111,19 @@ const UserList = () => {
     return (
         <div id="layoutSidenav_content">
             <main>
-                <div className="container-fluid p-2">
-                    {/* <h3 className="mt-4">Tài khoản người dùng</h3> */}
-                    <ol className="breadcrumb mb-3 sticky-top bg-white">
+                <div className="container-fluid px-4">
+                    {/* <h3 className="mt-4">Danh mục</h3> */}
+                    <ol className="breadcrumb mb-4">
                         <li className="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                        <li className="breadcrumb-item active">Danh sách tài khoản</li>
+                        <li className="breadcrumb-item active">Danh mục</li>
                     </ol>
                     <div className='mb-3'>
-                        <Link className='btn btn-sm btn-success me-2' to="/users/add"><i className="fa fa-plus"></i>Thêm mới tài khoản</Link>
+                        <Link className='btn btn-sm btn-success me-2' to="/categories/add"><i className="fa fa-plus"></i>Tạo mới</Link>
                         {/* <button type='button' className='btn btn-sm btn-success me-2'><i className="fa fa-plus"></i> Add new</button> */}
-                        {selectedRows.length > 0 && <button type='button' className='btn btn-sm btn-danger' onClick={handleMultiDelete}><i className="fa fa-trash"></i>Xóa các tài khoản đã chọn</button>}
+                        {selectedRows.length > 0 && <button type='button' className='btn btn-sm btn-danger' onClick={handleMultiDelete}><i className="fa fa-trash"></i>Xóa tất cả lựa chọn</button>}
                     </div>
-                    <DataTable
-                        name="Danh sách tài khoản"
+                    <DataTableCate
+                        name="Danh sách danh mục"
                         data={users}
                         columns={columns}
                         numOfPage={numOfPage}
@@ -146,18 +143,18 @@ const UserList = () => {
             </main>
             <Modal show={showModal} onHide={() => setShowModal(false)} size='sm'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Xác nhận</Modal.Title>
+                    <Modal.Title>Confirmation</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Bạn thật sự muốn xóa không?
+                    Are you sure want to delete?
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={() => setShowModal(false)}>Không</Button>
-                    <Button className='btn-danger' onClick={requestDeleteApi}>Chấp nhận</Button>
+                    <Button onClick={() => setShowModal(false)}>Close</Button>
+                    <Button className='btn-danger' onClick={requestDeleteApi}>Delete</Button>
                 </Modal.Footer>
             </Modal>
         </div>
     )
 }
 
-export default UserList
+export default CategoryList

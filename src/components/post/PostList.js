@@ -67,13 +67,14 @@ const PostList = () => {
     const handleMultiDelete = () => {
         console.log("multi delete => ", selectedRows)
         setShowModal(true)
+        setSelectedRows(selectedRows)
         setDeleteType('multi')
     }
 
     const requestDeleteApi = () => {
         if (deleteType === 'single') {
             dispatch(actions.controlLoading(true))
-            requestApi(`/users/${deleteItem}`, 'DELETE', []).then(response => {
+            requestApi(`/posts/${deleteItem}`, 'DELETE', []).then(response => {
                 setShowModal(false)
                 setRefresh(Date.now())
                 dispatch(actions.controlLoading(false))
@@ -84,7 +85,7 @@ const PostList = () => {
             })
         } else {
             dispatch(actions.controlLoading(true))
-            requestApi(`/users/multiple?ids=${selectedRows.toString()}`, 'DELETE', []).then(response => {
+            requestApi(`/posts/multiple?ids=${selectedRows.toString()}`, 'DELETE', []).then(response => {
                 setShowModal(false)
                 setRefresh(Date.now())
                 setSelectedRows([])
@@ -116,12 +117,12 @@ const PostList = () => {
             <main>
                 <div className="container-fluid px-4">
                     {/* <h3 className="mt-4">Danh mục bài viết</h3> */}
-                    <ol className="breadcrumb mb-4">
+                    <ol className="breadcrumb mb-4 sticky-top bg-white pb-2">
                         <li className="breadcrumb-item"><Link to={"/"}>Trang chủ</Link></li>
                         <li className="breadcrumb-item active">Danh mục bài viết</li>
                     </ol>
                     <div className='mb-3'>
-                        <Link className='btn btn-sm btn-success me-2' to="/posts/add"><i className="fa fa-plus"></i>Thêm mới</Link>
+                        {/* <Link className='btn btn-sm btn-success me-2' to="/posts/add"><i className="fa fa-plus"></i>Thêm mới</Link> */}
                         {/* <button type='button' className='btn btn-sm btn-success me-2'><i className="fa fa-plus"></i> Add new</button> */}
                         {selectedRows.length > 0 && <button type='button' className='btn btn-sm btn-danger' onClick={handleMultiDelete}><i className="fa fa-trash"></i> Xóa các bài viết đã chọn</button>}
                     </div>

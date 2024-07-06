@@ -88,37 +88,38 @@ const PostAdd = () => {
             <main>
                 <div className="container-fluid px-4">
                     {/* <h1 className="mt-4">Tables</h1> */}
-                    <ol className="breadcrumb mb-4">
+                    <ol className="breadcrumb mb-4 sticky-top bg-white pb-2">
                         <li className="breadcrumb-item"><Link to={"/"}>Trang chủ</Link></li>
                         <li className="breadcrumb-item active"><Link to={"/posts"}>Danh mục bài viết</Link></li>
                         <li className="breadcrumb-item active">Thêm mới bài viết</li>
                     </ol>
-                    <div className='mb-3'>
+                    {/* <div className='mb-3'>
                         <Link className='btn btn-sm btn-success me-2' to="/users"><i className="fa fa-plus"></i> Trờ về danh mục bài viêt</Link>
-                    </div>
+                    </div> */}
                     <div className="card mb-4">
                         <div className="card-header">
                             Thêm mới bài viết
                         </div>
                         <div className="card-body">
                             <form>
+                                <div className="row">
                                 <div className="col-md-6">
-                                    <div className="mb-3 mt-3">
+                                    <div className="mb-1 mt-0">
                                         <label className="form-label">Tiêu đề</label>
                                         <div className="input-group">
                                             <input type="text" {...register('title', { required: 'Tiêu đề không được để trống!' })} className="form-control" aria-describedby="basic-addon3 basic-addon4" />
                                             {errors.title && <p style={{ color: "red" }}> {errors.title.message}</p>}
                                         </div>
                                     </div>
-                                    <div className="mb-3">
+                                    <div className="mb-1">
                                         <label className="form-label">Mô tả ngắn</label>
                                         <div className="input-group">
-                                            <input type="text" {...register('summary', { required: 'Mô tả ngắn không được để trống!' })} className="form-control" i aria-describedby="basic-addon3 basic-addon4" />
+                                            <textarea rows={4} type="text" {...register('summary', { required: 'Mô tả ngắn không được để trống!' })} className="form-control" i aria-describedby="basic-addon3 basic-addon4" />
 
                                         </div>
                                         {errors.summary && <p style={{ color: "red" }}> {errors.summary.message}</p>}
                                     </div>
-                                    <div className="mb-3">
+                                    <div className="mb-1">
                                         <label className="form-label">Nội dung bài viết</label>
                                         <CKEditor
                                             editor={ClassicEditor}
@@ -146,6 +147,9 @@ const PostAdd = () => {
                                         </div> */}
                                         {errors.description && <p style={{ color: "red" }}> {errors.description.message}</p>}
                                     </div>
+
+                                </div>
+                                <div className="col-md-6">
                                     <div className="md-3">
                                         <label className="form-label" >Ảnh đại diện</label><br />
                                         {thumbnailData && <img src={thumbnailData} className="img-thumbnail rounded mb-3" />}
@@ -215,6 +219,10 @@ const PostAdd = () => {
 
                                     </div>
                                 </div>
+                                </div>
+                                
+
+                                
                             </form>
                         </div>
 

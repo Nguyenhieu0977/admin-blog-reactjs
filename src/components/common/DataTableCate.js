@@ -19,10 +19,10 @@ const DataTableCate = (props) => {
             data.map((item, index) => (
                 <>
                     <tr >
-                        <td key={index}><input type="checkbox" checked={selectedRows.includes(String(item.id)) ? true : false} className="form-check-input" value={item.id} onChange={onClickCheckbox} /></td>
+                        {/* <td key={index}><input type="checkbox" checked={selectedRows.includes(String(item.id)) ? true : false} className="form-check-input" value={item.id} onChange={onClickCheckbox} /></td> */}
                         {
                             columns.map((col, ind) =>
-                                <td key={ind} style={{ fontSize: "16px", fontWeight: "bold" }}>
+                                <td key={ind} style={{ fontSize: "16px" }}>
                                     {col.element(item)}
                                 </td>)
                         }
@@ -32,7 +32,7 @@ const DataTableCate = (props) => {
                         item.children?.map((item2, index) => (
                             <>
                                 <tr >
-                                    <td key={index}><input type="checkbox" checked={selectedRows.includes(String(item2.id)) ? true : false} className="form-check-input" value={item2.id} onChange={onClickCheckbox} /></td>
+                                    {/* <td key={index}><input type="checkbox" checked={selectedRows.includes(String(item2.id)) ? true : false} className="form-check-input" value={item2.id} onChange={onClickCheckbox} /></td> */}
                                     {
                                         columns.map((col, ind2) =>
                                             <td key={ind2} style={{ fontSize: "16px" }}>
@@ -44,7 +44,7 @@ const DataTableCate = (props) => {
                                     item2.children.length > 0 &&
                                     item2.children?.map((item3, index) => (
                                         <tr key={index}>
-                                            <td key={index}><input type="checkbox" checked={selectedRows.includes(String(item3.id)) ? true : false} className="form-check-input" value={item3.id} onChange={onClickCheckbox} /></td>
+                                            {/* <td key={index}><input type="checkbox" checked={selectedRows.includes(String(item3.id)) ? true : false} className="form-check-input" value={item3.id} onChange={onClickCheckbox} /></td> */}
                                             {
                                                 columns.map((col, ind3) =>
                                                     <td key={ind3} style={{ fontSize: "16px", fontStyle: "italic" }}>
@@ -128,7 +128,7 @@ const DataTableCate = (props) => {
                 {name}
             </div>
             <div className="card-body">
-                <div className="row mb-3">
+                {/* <div className="row mb-3">
                     <div className="col-sm-12 col-md-6">
                         <label className='d-inline-flex'>Hiển thị
                             <select defaultValue="5" name="example_length" className="form-select form-select-sm ms-1 me-1" onChange={onChangeOption}>
@@ -145,11 +145,13 @@ const DataTableCate = (props) => {
                             <LiveSearch onKeySearch={onKeySearch} />
                         </label>
                     </div>
-                </div>
+                </div> */}
                 <table className="table table-striped table-bordered" cellSpacing="0" width="100%">
                     <thead>
                         <tr>
-                            <td><input checked={selectedRows.length === data.length && data.length > 0 ? true : false} type="checkbox" className="form-check-input" onChange={onSelectAll} /></td>
+                            {/* <td>
+                                <input checked={selectedRows.length === data.length && data.length > 0 ? true : false} type="checkbox" className="form-check-input" onChange={onSelectAll} />
+                            </td> */}
                             {renderHeaders()}
                         </tr>
                     </thead>
@@ -158,7 +160,7 @@ const DataTableCate = (props) => {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td></td>
+                            {/* <td></td> */}
                             {renderHeaders()}
                         </tr>
                     </tfoot>

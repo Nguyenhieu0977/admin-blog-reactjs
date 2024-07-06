@@ -110,6 +110,7 @@ const PostUpdate = () => {
                         </div>
                         <div className="card-body">
                             <form>
+                                <div className="row">
                                 <div className="col-md-6">
                                     <div className="mb-3 mt-3">
                                         <label className="form-label">Tiêu đề</label>
@@ -146,6 +147,10 @@ const PostUpdate = () => {
                                         />
                                         {errors.description && <p style={{ color: "red" }}> {errors.description.message}</p>}
                                     </div>
+                                    
+                                </div>
+                                <div className="col-md-6">
+                                    
                                     <div className="md-3">
                                         <label className="form-label" >Ảnh đại diện</label><br />
                                         {postData.thumbnail && <img src={postData.thumbnail} className="img-thumbnail rounded mb-3" />}
@@ -195,6 +200,8 @@ const PostUpdate = () => {
                                         </div>
                                     </div>
                                 </div>
+                                </div>
+                                
                             </form>
                         </div>
 

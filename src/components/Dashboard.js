@@ -115,7 +115,7 @@ const Dashboard = () => {
                 <div className="container-fluid px-4">
                     {/* <h4 className="mt-4">Tổng quan</h4> */}
                     <ol className="breadcrumb mb-2 sticky-top bg-white">
-                        <li className="breadcrumb-item active mb-2">Tổng quan</li>
+                        <li className="breadcrumb-item active mb-2">Tổng quan hệ thống</li>
                     </ol>
                     <div className="row">
                         <div className="col-xl-3 col-md-6">

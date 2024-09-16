@@ -158,12 +158,12 @@ const DataTableCate = (props) => {
                     <tbody>
                         {renderData()}
                     </tbody>
-                    <tfoot>
+                    {/* <tfoot>
                         <tr>
-                            {/* <td></td> */}
+                            <td></td>
                             {renderHeaders()}
                         </tr>
-                    </tfoot>
+                    </tfoot> */}
                 </table>
                 {numOfPage > 1 && (
                     <div className="row">

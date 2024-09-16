@@ -94,7 +94,7 @@ const Sidebar = () => {
         navigate("/login")
     }
     return (
-        <div id="layoutSidenav" className='pl-3 m-0' style={{height:"calc(100vh - 16vh)", overflowY: "scroll", minWidth:"250px"}} >
+        <div id="layoutSidenav" className='pl-3 m-0' style={{height:"calc(100vh - 9vh)", overflowY: "scroll", minWidth:"225px"}} >
             <nav className="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
             <div className="sticky-top bg-white d-flex justify-content-center text-uppercase fw-bold text-decoration-none">PHÂN HỆ QUẢN TRỊ</div>
                 <div className="sb-sidenav-menu">
@@ -137,8 +137,8 @@ const Sidebar = () => {
                         </Link>
                         <div className="collapse" id="collapseVideo" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav className="sb-sidenav-menu-nested nav">
-                                <Link to='/posts/add' className='nav-link pt-0'>Thêm mới Video</Link>
-                                <Link to='/posts' className='nav-link pt-0'>Danh sách Video</Link>
+                                <Link to='/videos/add' className='nav-link pt-0'>Thêm mới Video</Link>
+                                <Link to='/videos' className='nav-link pt-0'>Danh sách Video</Link>
                             </nav>
                         </div>
                         
@@ -170,7 +170,7 @@ const Sidebar = () => {
                         </div>
 
 
-                        <Tree
+                        {/* <Tree
                             data={treeView}
                             levelOffset={23}
                             renderNode={({ node, expanded, hasChildren, elementProps }) => (
@@ -186,7 +186,7 @@ const Sidebar = () => {
                                     </Link>
                                 </Group>
                             )}
-                        />
+                        /> */}
                     </div>
                 </div>
             </nav>

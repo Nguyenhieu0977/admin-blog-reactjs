@@ -17,9 +17,13 @@ import Profile from './components/Profile';
 import PostList from './components/post/PostList';
 import PostAdd from './components/post/PostAdd';
 import PostUpdate from './components/post/PostUpdate';
+import VideoList from './components/video/VideoList';
+import VideoAdd from './components/video/VideoAdd';
+// import PostUpdate from './components/post/PostUpdate';
 import CategoryList from './components/category/CategoryList';
 import CategoryAdd from './components/category/CategoryAdd';
 import CategoryUpdate from './components/category/CategoryUpdate';
+import VideoUpdate from './components/video/VideoUpdate';
 
 
 
@@ -37,6 +41,9 @@ function App() {
             <Route path='/posts' element={<PostList />} />
             <Route path='/posts/add' element={<PostAdd/>} />
             <Route path='/post/edit/:id' element={<PostUpdate/>}/>
+            <Route path='/videos' element={<VideoList />} />
+            <Route path='/videos/add' element={<VideoAdd/>} />
+            <Route path='/video/edit/:id' element={<VideoUpdate/>}/>
             <Route path='/categories' element={<CategoryList />} />
             <Route path='/categories/add' element={<CategoryAdd />} />
             <Route path='/categories/edit/:id' element={<CategoryUpdate/>}/>

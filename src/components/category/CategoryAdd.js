@@ -65,7 +65,7 @@ const CategoryAdd = () => {
                                         </div>
                                     </div>
                                     <div className="mb-3 mt-3">
-                                        <label className="form-label">Tên danh mục</label>
+                                        <label className="form-label">Mô tả danh mục</label>
                                         <div className="input-group">
                                             <input type="text" {...register('description', { required: 'Mô tả danh mục không được để trống!' })} className="form-control" aria-describedby="basic-addon3 basic-addon4" />
                                             {errors.description && <p style={{ color: "red" }}> {errors.description.message}</p>}

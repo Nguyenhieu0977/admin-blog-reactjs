@@ -7,16 +7,16 @@ const Main = () => {
     return (
         <div>
             <Header />
-            <div id="layoutSidenav" className='pt-2'>
+            <div id="layoutSidenav" className='pt-1 mb-1'>
                 <Sidebar />
-                <div style={{height:"calc(100vh - 16vh)", overflowY: "scroll", width:"100%"}}>
+                <div style={{height:"calc(100vh - 9vh)", overflowY: "scroll", width:"100%"}}>
                 <Outlet />
                 </div>
                 
             </div>
-            <nav className="navbar sticky-bottom navbar-light bg-light d-flex justify-content-center " style={{height:"10px"}}>
-                <a className="navbar-brand center mt-1" href="#">Ban Công nghệ thông tin Quân khu 7</a>
-            </nav>
+            {/* <nav className="sticky-bottom navbar-light bg-light d-flex justify-content-center mt-0 mb-0" style={{height:"12px"}}>
+                <a className="navbar-brand center mt-3" href="#">Ban Công nghệ thông tin Quân khu 7</a>
+            </nav> */}
         </div>
     )
 }

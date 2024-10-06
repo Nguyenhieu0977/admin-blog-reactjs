@@ -26,11 +26,12 @@ const VideoUpdate = () => {
     console.log("Data=>", data);
     let formData = new FormData();
     for (let key in data) {
-      if (key === "thumbnail") {
+      if (key === "thumbnail" | key === "url") {
         if (data.thumbnail[0] instanceof File) {
           formData.append(key, data[key][0]);
         }
-      } else if (key === "url") {
+      } 
+      else if (key === "url") {
         if (data.url[0] instanceof File) {
           formData.append(key, data[key][0]);
         }
